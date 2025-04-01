@@ -7,7 +7,6 @@
 import React from "react";
 import { Header } from "./components/layout/Header";
 import { Features } from "./components/features/Features";
-import { Footer } from "./components/layout/Footer";
 import { PageContainer } from "./components/common/PageContainer";
 
 const Home = () => {
@@ -15,7 +14,6 @@ const Home = () => {
     <PageContainer>
       <Header />
       <Features />
-      <Footer />
     </PageContainer>
   );
 };

@@ -15,6 +15,9 @@ type FeatureCardProps = {
   description: string;
   features: string[];
   priority?: boolean;
+  aspectRatio?: string;
+  imageClassName?: string;
+  sizes?: string;
 };
 
 export const FeatureCard: ComponentType<FeatureCardProps> = ({
@@ -24,17 +27,23 @@ export const FeatureCard: ComponentType<FeatureCardProps> = ({
   description,
   features,
   priority = false,
+  aspectRatio = "aspect-[16/9]",
+  imageClassName = "",
+  sizes = "(max-width: 640px) 100vw, (max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw",
 }) => {
   return (
     <GlassCard>
-      <div className="relative h-48 mb-6 rounded-lg overflow-hidden bg-gray-100">
+      <div
+        className={`relative w-full ${aspectRatio} mb-6 rounded-lg overflow-hidden bg-gray-100 ${imageClassName}`}
+      >
         <Image
           src={imageSrc}
           alt={imageAlt}
           fill
-          className="object-cover"
+          className="object-cover object-center"
           priority={priority}
-          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+          sizes={sizes}
+          quality={85}
         />
       </div>
       <h3 className="text-2xl font-semibold text-gray-800 mb-4 drop-shadow-md">
