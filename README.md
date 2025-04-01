@@ -1,28 +1,37 @@
-# NextJS × Rails のTodoアプリ
+KPI 確認アプリケーションの概要
 
-### setup
+このアプリケーションは、Slack と連携して KPI（重要業績評価指標）を確認するためのツールです。 Rails と Next.js を使用して、ユーザーに直感的でインタラクティブなインターフェースを提供します。 ユーザーは、Slack を通じてリアルタイムで KPI データを取得し、分析することができます。
 
-```
-docker compose build
-```
+主な仕様:
+Rails をバックエンドとして使用し、データ管理と API の提供を行います。
+Next.js をフロントエンドとして使用し、ユーザーに動的なダッシュボードを提供します。
+Slack API を使用してメッセージを送受信
+KPI データの取得と表示
+ユーザーごとのカスタマイズ可能なダッシュボード
+定期的な KPI レポートの自動生成と配信
 
-```
-docker compose run backend bundle install
-```
+制限事項:
+Slack API の利用には、適切な認証情報が必要です。
+KPI データの取得元は、事前に設定されたデータソースに限定されます。
+大量のデータを扱う場合、パフォーマンスに影響が出る可能性があります。
+Rails と Next.js の統合には、適切な設定とデプロイが必要です。
 
-```
-docker compose run backend rails db:seed
-```
+基本設計:
+データベース設計: KPI データを効率的に保存するためのスキーマ設計
+テーブル定義書: 各テーブルのカラム、データ型、制約条件を詳細に記載
+API 設計: Rails を用いた RESTful API の設計
+OpenAPI 仕様書: 各エンドポイントの詳細、リクエスト/レスポンスのフォーマット、認証情報を記載
+UI/UX 設計: Next.js を用いたユーザーインターフェースのデザイン
+ワイヤーフレーム: 各画面のレイアウトとユーザーインタラクションを視覚化
+認証設計: Slack API との安全な認証フローの設計
+OAuth フロー: 認証プロセスのステップと必要なスコープを詳細に記載
 
-```
-docker compose run frontend npm install
-```
-
-```
-docker compose up -d
-```
-
-
-※localhost:8000で確認
-
-<img width="1233" alt="スクリーンショット 2024-10-14 16 17 27" src="https://github.com/user-attachments/assets/fab5d4fb-81c7-4dbd-aa5d-775ccb5d4286">
+使用技術:
+| 技術 | 用途 |
+|----------------|------------------------------------------|
+| Rails | バックエンド開発、API 提供 |
+| Next.js | フロントエンド開発、UI/UX 設計 |
+| Slack API | メッセージの送受信、KPI データの取得 |
+| PostgreSQL | データベース管理、KPI データの保存 |
+| OpenAPI/Swagger| API 仕様書の作成、エンドポイントの定義 |
+| OAuth | 認証フローの実装、セキュリティの確保 |
