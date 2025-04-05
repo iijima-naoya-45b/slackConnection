@@ -1,13 +1,15 @@
-import axios from 'axios';
 import NextAuth from 'next-auth';
 import GoogleProvider from 'next-auth/providers/google';
+import axios from 'axios';
+
+const apiUrl = process.env.NEXT_PUBLIC_API_URL;
 
 const handler = NextAuth({
 	secret: process.env.NEXTAUTH_SECRET,
 	providers: [
 		GoogleProvider({
-			clientId: process.env.GOOGLE_CLIENT_ID as string,
-			clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
+			clientId: process.env.GOOGLE_CLIENT_ID ?? '',
+			clientSecret: process.env.GOOGLE_CLIENT_SECRET ?? '',
 		}),
 	],
 	callbacks: {
@@ -16,10 +18,16 @@ const handler = NextAuth({
 			const uid = user?.id;
 			const name = user?.name;
 			const email = user?.email;
-			
-      try {
+
+			console.log('signIn', user, account);
+			console.log('checkpoint');
+			console.log(provider, uid, name, email);
+			console.log(`${apiUrl}/auth/${provider}/callback`);
+			console.log('checkpoint');
+
+			try {
 				const response = await axios.post(
-					`${process.env.NEXT_PUBLIC_API_URL}/auth/${provider}/callback`,
+					`${apiUrl}/auth/${provider}/callback`,
 					{
 						provider,
 						uid,
@@ -27,19 +35,17 @@ const handler = NextAuth({
 						email,
 					}
 				);
-				if (response.status === 200) {
-					return true;
-				} else {
-					return false;
-				}
+
+				if(response.status === 200) return true;
+
 			} catch (error) {
-				console.log('エラー', error);
+				console.log('どういうエラーか確認', error);
 				return false;
 			}
-      
+
+      return true;
 		},
 	},
 });
-
 export { handler as GET, handler as POST };
 
