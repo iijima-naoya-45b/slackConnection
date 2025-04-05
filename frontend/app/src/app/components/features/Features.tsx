@@ -8,9 +8,7 @@ import type { ComponentType } from "react";
 import { FeatureCard } from "./FeatureCard";
 import { features } from "./featureData";
 
-type FeaturesProps = {
-  // 将来的にpropsが必要になった場合に追加
-};
+type FeaturesProps = {};
 
 export const Features: ComponentType<FeaturesProps> = () => {
   return (
