@@ -7,9 +7,7 @@
 import React from "react";
 import Link from "next/link";
 
-type FooterProps = {
-  // 将来的にpropsが必要になった場合に追加
-};
+type FooterProps = {};
 
 export const Footer: React.ComponentType<FooterProps> = () => {
   return (

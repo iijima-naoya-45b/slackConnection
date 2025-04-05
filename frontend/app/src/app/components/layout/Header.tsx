@@ -24,6 +24,12 @@ export const Header: ComponentType<HeaderProps> = () => {
           </Link>
           <nav className="flex space-x-4">
             <Link
+              href="/login"
+              className="text-white hover:text-purple-200 transition-colors"
+            >
+              ログイン
+            </Link>
+            <Link
               href="/features"
               className="text-white hover:text-purple-200 transition-colors"
             >
