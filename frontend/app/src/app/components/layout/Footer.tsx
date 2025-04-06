@@ -1,3 +1,4 @@
+"use client";
 /**
  * @file Footer.tsx
  * @description フッターコンポーネント
@@ -6,6 +7,30 @@
 
 import React from "react";
 import Link from "next/link";
+
+async function createPost() {
+  try {
+    const response = await fetch("http://localhost:3000/posts", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        title: "Sample Post",
+        content: "This is a sample post content.",
+      }),
+    });
+
+    if (response.ok) {
+      const post = await response.json();
+      console.log("Post created:", post);
+    } else {
+      console.error("Failed to create post:", response.statusText);
+    }
+  } catch (error) {
+    console.error("Error:", error);
+  }
+}
 
 type FooterProps = {};
 
@@ -88,6 +113,7 @@ export const Footer: React.ComponentType<FooterProps> = () => {
           </p>
         </div>
       </div>
+      <button onClick={createPost}>Create Post</button>
     </footer>
   );
 };
