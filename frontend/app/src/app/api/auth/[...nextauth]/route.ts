@@ -1,6 +1,5 @@
 import NextAuth from 'next-auth';
 import GoogleProvider from 'next-auth/providers/google';
-import axios from 'axios';
 
 const apiUrl = process.env.NEXT_PUBLIC_API_URL;
 
@@ -19,31 +18,37 @@ const handler = NextAuth({
 			const name = user?.name;
 			const email = user?.email;
 
-			console.log('signIn', user, account);
-			console.log('checkpoint');
-			console.log(provider, uid, name, email);
-			console.log(`${apiUrl}/auth/${provider}/callback`);
-			console.log('checkpoint');
+			// console.log('signIn', user, account);
+			// console.log('checkpoint');
+			// console.log(provider, uid, name, email);
+			// console.log(`${apiUrl}/auth/${provider}/callback`);
+			// console.log('checkpoint');
 
 			try {
-				const response = await axios.post(
-					`${apiUrl}/auth/${provider}/callback`,
+				const response = await fetch(
+					`${apiUrl}/api/v1/auth/${provider}/callback`,
 					{
-						provider,
-						uid,
-						name,
-						email,
+						method: 'POST',
+						headers: {
+							'Content-Type': 'application/json',
+						},
+						body: JSON.stringify({
+							provider,
+							uid,
+							name,
+							email,
+						}),
 					}
 				);
 
-				if(response.status === 200) return true;
+			if (response.ok) return true;
 
 			} catch (error) {
 				console.log('どういうエラーか確認', error);
 				return false;
 			}
 
-      return true;
+			return true;
 		},
 	},
 });
